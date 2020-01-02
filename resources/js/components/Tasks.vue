@@ -14,11 +14,11 @@
                             <input  v-model="search" @keyup="searchIt" type="text" class="mb-2 form-control"  placeholder="Search" >
                         </div>
                         <form class="range-field my-4 w-25 d-flex justify-content-start flex-nowrap align-items-center">
-                            <label>Width:</label>
+                            <label>Width</label>
                             <input type="range" min="100" max="400" v-model="sliderValue" @input="changeWidth"/>
                         </form>
                         <form class="range-field my-4 w-25 d-flex justify-content-start flex-nowrap align-items-center">
-                            <label>Height:</label>
+                            <label>Height</label>
                             <input type="range" min="100" max="300" v-model="sliderValue2" @input="changeHeight"/>
                         </form>
                     </section>
