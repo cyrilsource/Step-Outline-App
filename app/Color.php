@@ -4,19 +4,19 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Task extends Model
+class Color extends Model
 {
-   /**
+    /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
-        'id', 'title', 'description', 'order', 'type', 'color', 'color_id',
+        'id', 'title', 'description', 'color'
     ];
 
-    public function color() {
+    public function tasks() {
 
-    	return $this->belongsTo('App\Color');
+    	return $this->hasMany('App\Tasks');
     }
 }

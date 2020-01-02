@@ -18,7 +18,7 @@ class TaskController extends Controller
      */
     public function index()
     {
-        $tasks = Task::orderBy('order')->get();
+        $tasks = Task::with('color')->orderBy('order')->get();
 
         return TaskResource::collection($tasks);
 
@@ -30,13 +30,16 @@ class TaskController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, $count)
+    public function store(Request $request, $count, $type)
     {
         $last = $count +1;
         $task = new Task;
         $task->title = $request->input('title');
         $task->description = $request->input('description');
+        $task->color_id = $request->input('color_id');
+        $task->type = $type;
 
+        //if no choice order put the task in the end
         if ($request->input('order') === null) {
             $task->order = $last;
         }
@@ -57,7 +60,7 @@ class TaskController extends Controller
      */
     public function show($id)
     {
-        $task = Task::findOrFail($id);
+        $task = Task::with('color')->findOrFail($id);
 
         return new TaskResource($task);
     }
@@ -75,6 +78,7 @@ class TaskController extends Controller
         $task = Task::findOrFail($id);
         $task->title = $request->input('title');
         $task->description = $request->input('description');
+        $task->color_id = $request->input('color_id');
 
         if($task->save()) {
             return new TaskResource($task);
@@ -91,6 +95,8 @@ class TaskController extends Controller
                 'id' => $task['id'],
                 'title' => $task['title'],
                 'description' => $task['description'],
+                'type' => $task['type'],
+                'color_id' => $task['color_id'],
                 'order' => $task['order'],
             ]);
         }
@@ -120,11 +126,13 @@ class TaskController extends Controller
     {
         if ($search = $query) {
             $tasks = Task::where("title", "LIKE", "%".$search."%")
+            ->orWhere("description", "LIKE", "%".$search."%")
+            ->with('color')
             ->orderBy('order')
             ->get();
         }
         else {
-            $tasks = Task::orderBy('order')->get();
+            $tasks = Task::with('color')->orderBy('order')->get();
         }
 
         return TaskResource::collection($tasks);
