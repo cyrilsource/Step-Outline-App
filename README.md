@@ -1,6 +1,7 @@
 # Step-Outline-App
 A project with Laravel and VueJs. You can write a step-outline for a cinema script on cards. With drag and drog you can change order of the segments.
 
+<img src="capture.png">
 
 <ol>
   <li>clone the repo and cd into it</li>
