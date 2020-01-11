@@ -2296,9 +2296,9 @@ __webpack_require__.r(__webpack_exports__);
       }).then(function (res) {
         return res.json();
       }).then(function (data) {
-        _this7.clearForm();
+        _this7.selectTask("".concat(id));
 
-        _this7.fetchTasks();
+        _this7.searchIt();
       })["catch"](function (err) {
         return console.log(err);
       });
@@ -2315,9 +2315,7 @@ __webpack_require__.r(__webpack_exports__);
       }).then(function (res) {
         return res.json();
       }).then(function (data) {
-        _this8.clearForm();
-
-        _this8.fetchTasks();
+        _this8.selectColor("".concat(id));
 
         _this8.fetchColors();
       })["catch"](function (err) {

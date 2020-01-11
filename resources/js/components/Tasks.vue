@@ -415,8 +415,8 @@
                 })
                 .then(res => res.json())
                 .then(data => {
-                    this.clearForm();
-                    this.fetchTasks();
+                    this.selectTask(`${id}`)
+                    this.searchIt()
                 })
                 .catch(err => console.log(err));
             },
@@ -430,10 +430,8 @@
                 })
                 .then(res => res.json())
                 .then(data => {
-                    this.clearForm();
-                    this.fetchTasks();
-                    this.fetchColors();
-
+                    this.selectColor(`${id}`)
+                    this.fetchColors()
                 })
                 .catch(err => console.log(err));
             },

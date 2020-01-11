@@ -83,7 +83,6 @@ class TaskController extends Controller
         if($task->save()) {
             return new TaskResource($task);
         }
-
     }
 
     public function updateOrder(Request $request)
