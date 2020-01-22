@@ -24,6 +24,19 @@ class TaskController extends Controller
 
     }
 
+     /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function html()
+    {
+        $tasks = Task::with('color')->orderBy('order')->get();
+
+        return view('html', ['tasks' => $tasks]);
+
+    }
+
     /**
      * Store a newly created resource in storage.
      *
