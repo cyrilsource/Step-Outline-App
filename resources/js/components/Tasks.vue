@@ -56,7 +56,7 @@
                     </div>
                     <div class="form-group">
                         <label for="description">Segment description</label>
-                        <textarea  v-model="task.description" type="text" class="form-control" id="description" aria-describedby="description" placeholder="Segment description">task.description</textarea>
+                       <textarea  v-model="task.description" type="text" class="form-control" id="description" aria-describedby="description" placeholder="Segment description">task.description</textarea>
                     </div>
                     <div class="form-group">
                         <label for="order">You can choose order</label>
@@ -291,6 +291,7 @@
 <script>
     import draggable from 'vuedraggable'
     import editable from '../components/ContentEditable.vue'
+    import CKEditor from '@ckeditor/ckeditor5-vue'
 
     export default {
         components: {
@@ -570,6 +571,25 @@ table.table td, table.table th {
 .select_color {
     width: 50px;
     height: 50px;
+}
+
+::-webkit-scrollbar {
+    -webkit-appearance: none;
+}
+::-webkit-scrollbar:vertical {
+    width: 12px;
+}
+::-webkit-scrollbar:horizontal {
+    height: 12px;
+}
+::-webkit-scrollbar-thumb {
+    background-color: #f8ad00;
+    border-radius: 10px;
+    border: 2px solid #ffffff;
+}
+::-webkit-scrollbar-track {
+    border-radius: 10px;
+    background-color: #ffffff;
 }
 
 </style>
