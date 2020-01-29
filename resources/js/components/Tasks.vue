@@ -56,7 +56,15 @@
                     </div>
                     <div class="form-group">
                         <label for="description">Segment description</label>
-                       <textarea  v-model="task.description" type="text" class="form-control" id="description" aria-describedby="description" placeholder="Segment description">task.description</textarea>
+                        <editor id="description" v-model="task.description"
+                        api-key="jxlnrmc20xgg41706k5kkku9p1x25ip6oqlo88wjm6oez1iy"
+                        initialValue=""
+                        :init="{
+                            height: 500,
+                            plugins:'image link textcolor imagetools colorpicker',
+                            toolbar1: 'formatselect | bold italic strikethrough forecolor backcolor | link | alignleft aligncenter alignright alignjustify  | numlist bullist outdent indent  | removeformat',
+                        }"
+                        ></editor>
                     </div>
                     <div class="form-group">
                         <label for="order">You can choose order</label>
@@ -82,7 +90,7 @@
                 <div class="card-body" @click="selectTask(task.id)"  data-toggle="modal" data-target="#Modal2">
                     <h2 class="card-title">{{ task.title }}</h2>
                     <p class="order" style="font-style: italic; font-size: 1rem; margin-right: 0.5rem;> "> Order: {{ task.order }}</p>
-                    <p class="card-text">{{ task.description }}</p>
+                    <p class="card-text" v-html="task.description"></p>
                 </div>
                 <span class="trash_card" @click="deleteTask(task.id)"  style="font-size: 20px; color: #FF3547;">
                     <i class="fas fa-times"></i>
@@ -92,7 +100,7 @@
                 <div class="card-body" @click="selectTask(task.id)"  data-toggle="modal" data-target="#Modal2">
                     <h2 class="card-title">{{ task.title }}</h2>
                     <p class="order" style="font-style: italic; font-size: 1rem; margin-right: 0.5rem;> "> Order: {{ task.order }}</p>
-                    <p class="card-text">{{ task.description }}</p>
+                    <p class="card-text" v-html="task.description"></p>
                 </div>
                 <span class="trash_card" @click="deleteTask(task.id)"  style="font-size: 20px; color: #FF3547;">
                     <i class="fas fa-times"></i>
@@ -124,7 +132,7 @@
                 <div class="card-body" @click="selectTask(task.id)"  data-toggle="modal" data-target="#Modal2">
                     <h2 class="card-title">{{ task.title }}</h2>
                     <p class="order" style="font-style: italic; font-size: 1rem; margin-right: 0.5rem;> "> Order: {{ task.order }}</p>
-                    <p class="card-text">{{ task.description }}</p>
+                    <p class="card-text" v-html="task.description"></p>
                 </div>
                 <span class="trash_card" @click="deleteTask(task.id)"  style="font-size: 20px; color: #FF3547;">
                     <i class="fas fa-times"></i>
@@ -134,7 +142,7 @@
                 <div class="card-body" @click="selectTask(task.id)"  data-toggle="modal" data-target="#Modal2">
                     <h2 class="card-title">{{ task.title }}</h2>
                     <p class="order" style="font-style: italic; font-size: 1rem; margin-right: 0.5rem;> "> Order: {{ task.order }}</p>
-                    <p class="card-text">{{ task.description }}</p>
+                    <p class="card-text" v-html="task.description"></p>
                 </div>
                 <span class="trash_card" @click="deleteTask(task.id)"  style="font-size: 20px; color: #FF3547;">
                     <i class="fas fa-times"></i>
@@ -175,7 +183,15 @@
                     </div>
                     <div class="form-group">
                         <label for="description">Segment description</label>
-                        <textarea  v-model="task.description" type="text" class="form-control" id="description" aria-describedby="description" placeholder="Segment description">task.description</textarea>
+                        <editor  v-model="task.description"
+                        api-key="jxlnrmc20xgg41706k5kkku9p1x25ip6oqlo88wjm6oez1iy"
+                        initialValue=""
+                        :init="{
+                            height: 500,
+                            plugins:'image link textcolor imagetools colorpicker',
+                            toolbar1: 'formatselect | bold italic strikethrough forecolor backcolor | link | alignleft aligncenter alignright alignjustify  | numlist bullist outdent indent  | removeformat',
+                        }"
+                        ></editor>
                     </div>
                      <div class="form-group">
                         <label  for="color">You can choose a background color</label>
@@ -291,12 +307,13 @@
 <script>
     import draggable from 'vuedraggable'
     import editable from '../components/ContentEditable.vue'
-    import CKEditor from '@ckeditor/ckeditor5-vue'
+    import Editor from '@tinymce/tinymce-vue'
 
     export default {
         components: {
             draggable,
-            editable
+            editable,
+            'editor': Editor,
         },
         data() {
             return {
