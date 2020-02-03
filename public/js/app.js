@@ -2638,6 +2638,28 @@ __webpack_require__.r(__webpack_exports__);
       var _this3 = this;
 
       var count = this.tasks.length;
+      var order = this.task.order.length;
+
+      if (order == 0) {
+        if (confirm('No order specified')) {
+          fetch("api/task/".concat(count, "/").concat(type), {
+            method: 'post',
+            body: JSON.stringify(this.task),
+            headers: {
+              'content-type': 'application/json'
+            }
+          }).then(function (res) {
+            return res.json();
+          }).then(function (data) {
+            _this3.clearForm();
+
+            _this3.fetchTasks();
+          })["catch"](function (err) {
+            return console.log(err);
+          });
+        }
+      }
+
       fetch("api/task/".concat(count, "/").concat(type), {
         method: 'post',
         body: JSON.stringify(this.task),
@@ -7355,7 +7377,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.header {\n    margin-top: 2rem;\n    margin-bottom: 2rem;\n}\n.pilot {\n    margin-bottom: 3rem;\n}\n.card {\n    overflow: auto;\n    -webkit-transition: all 0.5s ease;\n    transition: all 0.5s ease;\n    height: 150px;\n    word-break: keep-all;\n    cursor: pointer;\n    margin-right: 1rem;\n    margin-left: 1rem;\n    position: relative;\n    resize: both;\n}\n.card p{\n    color: black !important;\n}\n.card-body {\n    min-width: 200px;\n}\n.card .trash_card {\n    position: absolute;\n    top: 0px;\n    right: 2px;\n}\n.timeline {\n    overflow: auto;\n    padding: 2rem;\n}\n.column {\n    position: relative;\n    cursor: pointer;\n}\n.column_body {\n    height: 300px;\n    width: 25px;\n}\n.column .trash_column {\n    position: absolute;\n    bottom: 0;\n    left: 5px;\n}\n.colors_list {\n    height: 12rem;\n    overflow: auto;\n}\ntable.table td, table.table th {\n    padding-top: 0rem;\n    padding-bottom: 0rem;\n}\n.select_color {\n    width: 50px;\n    height: 50px;\n}\n::-webkit-scrollbar {\n    -webkit-appearance: none;\n}\n::-webkit-scrollbar:vertical {\n    width: 12px;\n}\n::-webkit-scrollbar:horizontal {\n    height: 12px;\n}\n::-webkit-scrollbar-thumb {\n    background-color: #f8ad00;\n    border-radius: 10px;\n    border: 2px solid #ffffff;\n}\n::-webkit-scrollbar-track {\n    border-radius: 10px;\n    background-color: #ffffff;\n}\n\n", ""]);
+exports.push([module.i, "\n.main {\n    background-color: #343a40;\n}\n.header {\n    margin-top: 2rem;\n    margin-bottom: 2rem;\n}\n.pilot {\n    margin-bottom: 3rem;\n}\n.card {\n    overflow: auto;\n    -webkit-transition: all 0.5s ease;\n    transition: all 0.5s ease;\n    height: 150px;\n    word-break: keep-all;\n    cursor: pointer;\n    margin-right: 0.3rem;\n    margin-left: 0.3rem;\n    position: relative;\n    resize: both;\n}\n.card p{\n    color: black !important;\n}\n.card-body {\n    min-width: 200px;\n}\n.card .trash_card {\n    position: absolute;\n    top: 0px;\n    right: 2px;\n}\n.timeline {\n    overflow: auto;\n    padding: 2rem;\n}\n.column {\n    position: relative;\n    cursor: pointer;\n}\n.column_body {\n    height: 300px;\n    width: 25px;\n}\n.column .trash_column {\n    position: absolute;\n    bottom: 0;\n    left: 5px;\n}\n.range-field .cursor {\n    color: white;\n}\n.colors_list {\n    height: 12rem;\n    overflow: auto;\n}\n.colors_list p, .colors_list h4{\n    color: white !important;\n}\ntable.table td, table.table th {\n    padding-top: 0rem;\n    padding-bottom: 0rem;\n}\n.select_color {\n    width: 50px;\n    height: 50px;\n}\n::-webkit-scrollbar {\n    -webkit-appearance: none;\n}\n::-webkit-scrollbar:vertical {\n    width: 12px;\n}\n::-webkit-scrollbar:horizontal {\n    height: 12px;\n}\n::-webkit-scrollbar-thumb {\n    background-color: #f8ad00;\n    border-radius: 10px;\n    border: 2px solid #ffffff;\n}\n::-webkit-scrollbar-track {\n    border-radius: 10px;\n    background-color: #ffffff;\n}\n\n", ""]);
 
 // exports
 
@@ -42689,7 +42711,7 @@ var render = function() {
                       "range-field my-4 w-25 d-flex justify-content-start flex-nowrap align-items-center"
                   },
                   [
-                    _c("label", [_vm._v("Width")]),
+                    _c("label", { staticClass: "cursor" }, [_vm._v("Width")]),
                     _vm._v(" "),
                     _c("input", {
                       directives: [
@@ -42700,7 +42722,7 @@ var render = function() {
                           expression: "sliderValue"
                         }
                       ],
-                      attrs: { type: "range", min: "100", max: "400" },
+                      attrs: { type: "range", min: "40", max: "400" },
                       domProps: { value: _vm.sliderValue },
                       on: {
                         input: _vm.changeWidth,
@@ -42719,7 +42741,7 @@ var render = function() {
                       "range-field my-4 w-25 d-flex justify-content-start flex-nowrap align-items-center"
                   },
                   [
-                    _c("label", [_vm._v("Height")]),
+                    _c("label", { staticClass: "cursor" }, [_vm._v("Height")]),
                     _vm._v(" "),
                     _c("input", {
                       directives: [
@@ -42730,7 +42752,7 @@ var render = function() {
                           expression: "sliderValue2"
                         }
                       ],
-                      attrs: { type: "range", min: "100", max: "300" },
+                      attrs: { type: "range", min: "75", max: "300" },
                       domProps: { value: _vm.sliderValue2 },
                       on: {
                         input: _vm.changeHeight,

@@ -14,12 +14,12 @@
                             <input  v-model="search" @keyup="searchIt" type="text" class="mb-2 form-control"  placeholder="Search" >
                         </div>
                         <form class="range-field my-4 w-25 d-flex justify-content-start flex-nowrap align-items-center">
-                            <label>Width</label>
-                            <input type="range" min="100" max="400" v-model="sliderValue" @input="changeWidth"/>
+                            <label class="cursor">Width</label>
+                            <input type="range" min="40" max="400" v-model="sliderValue" @input="changeWidth"/>
                         </form>
                         <form class="range-field my-4 w-25 d-flex justify-content-start flex-nowrap align-items-center">
-                            <label>Height</label>
-                            <input type="range" min="100" max="300" v-model="sliderValue2" @input="changeHeight"/>
+                            <label class="cursor">Height</label>
+                            <input type="range" min="75" max="300" v-model="sliderValue2" @input="changeHeight"/>
                         </form>
                     </section>
                 </div>
@@ -378,7 +378,25 @@
                 })
             },
             addTask(type) {
-                let count = this.tasks.length;
+                let count = this.tasks.length
+                let order = this.task.order.length
+                if (order == 0) {
+                    if (confirm('No order specified')) {
+                        fetch(`api/task/${count}/${type}`, {
+                        method: 'post',
+                        body: JSON.stringify(this.task),
+                        headers: {
+                            'content-type': 'application/json'
+                            }
+                        })
+                        .then(res => res.json())
+                        .then(data => {
+                            this.clearForm();
+                            this.fetchTasks();
+                        })
+                        .catch(err => console.log(err));
+                    }
+                }
                 fetch(`api/task/${count}/${type}`, {
                 method: 'post',
                 body: JSON.stringify(this.task),
@@ -521,6 +539,9 @@
 </script>
 
 <style>
+.main {
+    background-color: #343a40;;
+}
 .header {
     margin-top: 2rem;
     margin-bottom: 2rem;
@@ -534,8 +555,8 @@
     height: 150px;
     word-break: keep-all;
     cursor: pointer;
-    margin-right: 1rem;
-    margin-left: 1rem;
+    margin-right: 0.3rem;
+    margin-left: 0.3rem;
     position: relative;
     resize: both;
 }
@@ -575,9 +596,17 @@
     left: 5px;
 }
 
+.range-field .cursor {
+    color: white;
+}
+
 .colors_list {
     height: 12rem;
     overflow: auto;
+}
+
+.colors_list p, .colors_list h4{
+    color: white !important;
 }
 
 table.table td, table.table th {
