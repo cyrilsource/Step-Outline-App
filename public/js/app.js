@@ -2562,6 +2562,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 
 
 
@@ -2596,6 +2600,13 @@ __webpack_require__.r(__webpack_exports__);
       sliderValue2: 150,
       height: 150
     };
+  },
+  mounted: function mounted() {
+    // Prevent Bootstrap dialog from blocking focusin
+    document.addEventListener('focusin', function (e) {
+      var cible = e.target;
+      console.log(cible);
+    });
   },
   created: function created() {
     this.fetchTasks();
@@ -2829,6 +2840,11 @@ __webpack_require__.r(__webpack_exports__);
         _this12.tasks = res.data;
       });
     }, 500)
+  }
+});
+$(document).on('focusin', function (e) {
+  if ($(e.target).closest(".tox-tinymce-aux, .moxman-window, .tam-assetmanager-root").length) {
+    e.stopImmediatePropagation();
   }
 });
 
@@ -7377,7 +7393,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.main {\n    background-color: #343a40;\n}\n.header {\n    margin-top: 2rem;\n    margin-bottom: 2rem;\n}\n.pilot {\n    margin-bottom: 3rem;\n}\n.card {\n    overflow: auto;\n    -webkit-transition: all 0.5s ease;\n    transition: all 0.5s ease;\n    height: 150px;\n    word-break: keep-all;\n    cursor: pointer;\n    margin-right: 0.3rem;\n    margin-left: 0.3rem;\n    position: relative;\n    resize: both;\n}\n.card p{\n    color: black !important;\n}\n.card-body {\n    min-width: 200px;\n}\n.card .trash_card {\n    position: absolute;\n    top: 0px;\n    right: 2px;\n}\n.timeline {\n    overflow: auto;\n    padding: 2rem;\n}\n.column {\n    position: relative;\n    cursor: pointer;\n}\n.column_body {\n    height: 300px;\n    width: 25px;\n}\n.column .trash_column {\n    position: absolute;\n    bottom: 0;\n    left: 5px;\n}\n.range-field .cursor {\n    color: white;\n}\n.colors_list {\n    height: 12rem;\n    overflow: auto;\n}\n.colors_list p, .colors_list h4{\n    color: white !important;\n}\ntable.table td, table.table th {\n    padding-top: 0rem;\n    padding-bottom: 0rem;\n}\n.select_color {\n    width: 50px;\n    height: 50px;\n}\n::-webkit-scrollbar {\n    -webkit-appearance: none;\n}\n::-webkit-scrollbar:vertical {\n    width: 12px;\n}\n::-webkit-scrollbar:horizontal {\n    height: 12px;\n}\n::-webkit-scrollbar-thumb {\n    background-color: #f8ad00;\n    border-radius: 10px;\n    border: 2px solid #ffffff;\n}\n::-webkit-scrollbar-track {\n    border-radius: 10px;\n    background-color: #ffffff;\n}\n\n", ""]);
+exports.push([module.i, "\n#app {\n    background-color: #343a40;\n    padding-top: 50px;\n    padding-bottom: 50px;\n    margin-top: -25px;\n}\n.header {\n    margin-top: 2rem;\n    margin-bottom: 2rem;\n}\n.pilot {\n    margin-bottom: 3rem;\n}\n.card {\n    overflow: auto;\n    -webkit-transition: all 0.5s ease;\n    transition: all 0.5s ease;\n    height: 150px;\n    word-break: keep-all;\n    cursor: pointer;\n    margin-right: 0.3rem;\n    margin-left: 0.3rem;\n    position: relative;\n    resize: both;\n}\n.card p{\n    color: black !important;\n}\n.card-body {\n    min-width: 200px;\n}\n.card .trash_card {\n    position: absolute;\n    top: 0px;\n    right: 2px;\n}\n.timeline {\n    overflow: auto;\n    padding: 2rem;\n}\n.column {\n    position: relative;\n    cursor: pointer;\n}\n.column_body {\n    height: 300px;\n    width: 25px;\n}\n.column .trash_column {\n    position: absolute;\n    bottom: 0;\n    left: 5px;\n}\n.range-field .cursor {\n    color: white;\n}\n.colors_list {\n    height: 12rem;\n    overflow: auto;\n}\n.colors_list p, .colors_list h4{\n    color: white !important;\n}\ntable.table td, table.table th {\n    padding-top: 0rem;\n    padding-bottom: 0rem;\n}\n.select_color {\n    width: 50px;\n    height: 50px;\n}\n::-webkit-scrollbar {\n    -webkit-appearance: none;\n}\n::-webkit-scrollbar:vertical {\n    width: 12px;\n}\n::-webkit-scrollbar:horizontal {\n    height: 12px;\n}\n::-webkit-scrollbar-thumb {\n    background-color: #f8ad00;\n    border-radius: 10px;\n    border: 2px solid #ffffff;\n}\n::-webkit-scrollbar-track {\n    border-radius: 10px;\n    background-color: #ffffff;\n}\n.modal-content {\n    z-index: 100 !important;\n}\n\n", ""]);
 
 // exports
 
@@ -43585,8 +43601,11 @@ var render = function() {
                               initialValue: "",
                               init: {
                                 height: 500,
-                                plugins:
-                                  "image link textcolor imagetools colorpicker",
+                                plugins: [
+                                  "advlist autolink lists link image charmap print preview anchor",
+                                  "searchreplace visualblocks code fullscreen",
+                                  "insertdatetime media table paste code help wordcount"
+                                ],
                                 toolbar1:
                                   "formatselect | bold italic strikethrough forecolor backcolor | link | alignleft aligncenter alignright alignjustify  | numlist bullist outdent indent  | removeformat"
                               }

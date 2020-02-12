@@ -188,7 +188,11 @@
                         initialValue=""
                         :init="{
                             height: 500,
-                            plugins:'image link textcolor imagetools colorpicker',
+                            plugins: [
+                        'advlist autolink lists link image charmap print preview anchor',
+                        'searchreplace visualblocks code fullscreen',
+                        'insertdatetime media table paste code help wordcount'
+                        ],
                             toolbar1: 'formatselect | bold italic strikethrough forecolor backcolor | link | alignleft aligncenter alignright alignjustify  | numlist bullist outdent indent  | removeformat',
                         }"
                         ></editor>
@@ -340,6 +344,15 @@
                 sliderValue2: 150,
                 height: 150,
             }
+        },
+
+        mounted() {
+            // Prevent Bootstrap dialog from blocking focusin
+            document.addEventListener('focusin', function(e) {
+                let cible = e.target;
+                console.log(cible)
+
+            });
         },
 
         created() {
@@ -536,11 +549,19 @@
             }, 500)
         }
     }
+$(document).on('focusin', function(e) {
+    if ($(e.target).closest(".tox-tinymce-aux, .moxman-window, .tam-assetmanager-root").length) {
+		e.stopImmediatePropagation();
+	}
+});
 </script>
 
 <style>
-.main {
-    background-color: #343a40;;
+#app {
+    background-color: #343a40;
+    padding-top: 50px;
+    padding-bottom: 50px;
+    margin-top: -25px;
 }
 .header {
     margin-top: 2rem;
@@ -636,6 +657,10 @@ table.table td, table.table th {
 ::-webkit-scrollbar-track {
     border-radius: 10px;
     background-color: #ffffff;
+}
+
+.modal-content {
+    z-index: 100 !important;
 }
 
 </style>

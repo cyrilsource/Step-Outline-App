@@ -19,4 +19,4 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::get('/html', 'TaskController@html');
+Route::get('/html', 'TaskController@html')->middleware('auth');
