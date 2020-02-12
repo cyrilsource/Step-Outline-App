@@ -650,7 +650,7 @@ table.table td, table.table th {
     height: 12px;
 }
 ::-webkit-scrollbar-thumb {
-    background-color: #f8ad00;
+    background-color: #4285F4;
     border-radius: 10px;
     border: 2px solid #ffffff;
 }
